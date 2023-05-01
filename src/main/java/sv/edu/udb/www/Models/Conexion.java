@@ -14,7 +14,7 @@ public class Conexion {
         this.rs = null;
     }
 
-    protected void Conectar(){
+    protected void conectar(){
         try {
             if(conexion==null || conexion.isClosed()){
                 Class.forName("com.mysql.cj.jdbc.Driver");
