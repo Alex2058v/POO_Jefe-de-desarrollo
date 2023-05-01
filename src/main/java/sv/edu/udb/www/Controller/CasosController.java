@@ -39,12 +39,17 @@ public class CasosController extends HttpServlet{
                 case "rechazarCaso":
                     rechazarCaso(request, response);
                     break;
+                case "gestionProgramadores":
+                    gestionProgramadores(request, response);
+                    break;
+
+                    //gestionProgramadores
             }
         }
     }
     private void mostarCasos(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            request.setAttribute("mostrarCasos", casos.mostrarPendientes());
+            request.setAttribute("mostrarCasos", casos.mostrarCasos());
             request.getRequestDispatcher("/jefeDesarrollo/gestionCasos.jsp").forward(request,response);
         } catch (SQLException ex) {
             response.sendRedirect("error404.jsp");
@@ -126,6 +131,24 @@ public class CasosController extends HttpServlet{
             //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    //A partir de aquí será para el punto 3, osea el de darle los casos a los programadores
+    private void gestionProgramadores(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            request.setAttribute("casosProgramadores", casos.casosProgramadores());
+            request.getRequestDispatcher("/jefeDesarrollo/gestionProgramadores.jsp").forward(request,response);
+        } catch (SQLException ex) {
+            response.sendRedirect("error404.jsp");
+            ex.printStackTrace();
+        } catch (ServletException ex) {
+            response.sendRedirect("error404.jsp");
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            response.sendRedirect("error404.jsp");
+            ex.printStackTrace();
         }
     }
 

@@ -7,7 +7,8 @@ import java.util.logging.Logger;
 import sv.edu.udb.www.Beans.CasosBeans;
 
 public class CasosModel extends Conexion{
-    public List<CasosBeans> mostrarPendientes() throws SQLException{
+    //parte donde solo se manejara el aprobar o rechazar un caso
+    public List<CasosBeans> mostrarCasos() throws SQLException{
         try {
             List<CasosBeans> lista = new ArrayList<>();
             String sql = "SELECT casos.id_caso, casos.descripcion_caso, estado.estado, casos.archivo_pdf, departamento.departamento\n" +
@@ -97,6 +98,34 @@ public class CasosModel extends Conexion{
             //Logger.getLogger(LibrosModel.class.getName()).log(Level.SEVERE, null, ex);
             this.desconectar();
             return 0;
+        }
+    }
+
+    //Desde aquí solo se va a manejar el darle a un programador un caso en particular.
+    public List<CasosBeans> casosProgramadores() throws SQLException{
+        try {
+            List<CasosBeans> lista = new ArrayList<>();
+            String sql = "SELECT c.id_caso, c.titulo_caso, c.descripcion_caso, c.archivo_pdf, d.departamento " +
+                    "FROM casos c INNER JOIN departamento d ON c.id_departamento = d.id_departamento " +
+                    "INNER JOIN estado e ON c.id_estado = e.id_estado " +
+                    "WHERE c.id_estado = 5";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()){
+                CasosBeans caso = new CasosBeans();
+                caso.setId_caso(Integer.parseInt(rs.getString("id_caso")));
+                caso.setTitulo_caso(rs.getString("titulo_caso"));
+                caso.setDescripcion_caso(rs.getString("descripcion_caso"));
+                caso.setArchivo_pdf(rs.getString("archivo_pdf"));
+                caso.setId_departamento(rs.getString("departamento"));
+                lista.add(caso);
+            }
+            this.desconectar();
+            return lista;
+        }catch (SQLException ex) {
+            this.desconectar();
+            return  null;
         }
     }
 }

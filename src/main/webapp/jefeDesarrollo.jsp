@@ -49,9 +49,9 @@
                         </div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/#">
+                <a href="${pageContext.request.contextPath}/CasosController.do?op=gestionProgramadores">
                     <div class="panel-footer">
-                        <span class="pull-left">Ver casos asignados</span>
+                        <span class="pull-left">Ver casos a programadores</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
