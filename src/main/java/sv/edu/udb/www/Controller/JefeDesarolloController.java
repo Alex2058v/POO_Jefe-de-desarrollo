@@ -10,11 +10,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import sv.edu.udb.www.Models.jefeDesarrolloModel;
+import sv.edu.udb.www.Models.JefeDesarrolloModel;
 
 @WebServlet(name = "jefeDesarrolloController", urlPatterns = {"/jefeDesarrollo.do"})
-public class jefeDesarolloController extends HttpServlet{
-    jefeDesarrolloModel jefeModelo = new jefeDesarrolloModel();
+public class JefeDesarolloController extends HttpServlet{
+    JefeDesarrolloModel jefeModelo = new JefeDesarrolloModel();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()){
@@ -33,7 +33,7 @@ public class jefeDesarolloController extends HttpServlet{
             request.getRequestDispatcher("jefeDesarrollo.jsp").forward(request, response);
 
         }catch (SQLException | ServletException | IOException ex) {
-            Logger.getLogger(jefeDesarolloController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JefeDesarolloController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,12 +1,7 @@
 package sv.edu.udb.www.Models;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sv.edu.udb.www.Beans.CasosBeans;
 
-public class jefeDesarrolloModel extends Conexion{
+public class JefeDesarrolloModel extends Conexion{
     //Estos métodos solo serviran para la jefeDesarrollo.jsp
     public int totalCasos() throws SQLException{
         try{
