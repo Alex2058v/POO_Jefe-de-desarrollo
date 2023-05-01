@@ -16,19 +16,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../jefeDesarrollo.jsp">Jefe de desarrollo</a>
+            <a class="navbar-brand" href="#">Jefe de desarrollo</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}/jefeDesarollo.do">Inicio</a></li>
+                <li class="active"><a href="${pageContext.request.contextPath}/jefeDesarrollo.do">Inicio</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                         role="button" aria-haspopup="true"
                         aria-expanded="false">Jefe de desarrollo.<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="${pageContext.request.contextPath}/#">Gestión de casos</a></li>
+                        <li><a href="${pageContext.request.contextPath}/CasosController.do?op=mostarCasos">Gestión de casos</a></li>
                         <li><a href="${pageContext.request.contextPath}/#">Gestión de programadores</a></li>
                         <li><a href="${pageContext.request.contextPath}/#">Ver avances de programadores</a></li>
                     </ul>

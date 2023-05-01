@@ -36,4 +36,47 @@ public class CasosModel extends Conexion{
             return  null;
         }
     }
+
+    public CasosBeans obtenerCaso(int id) throws SQLException{
+        try {
+            String sql = "SELECT id_caso, descripcion_caso, archivo_pdf FROM casos WHERE id_caso = ?";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            if(rs.next()){
+                CasosBeans casos = new CasosBeans();
+                casos.setId_caso(Integer.parseInt(rs.getString("id_caso")));
+                casos.setArchivo_pdf(rs.getString("archivo_pdf"));
+                casos.setDescripcion_caso(rs.getString("descripcion_caso"));
+                this.desconectar();
+                return casos;
+            }
+            this.desconectar();
+            return null;
+        }catch (SQLException ex) {
+            this.desconectar();
+            return null;
+        }
+    }
+    public int aprobarCaso(CasosBeans casos) throws SQLException{
+        try {
+            int filasAfectadas = 0;
+            String sql = "UPDATE casos set titulo_caso = ?, descripcion_caso = ?, archivo_pdf = ?, id_estado = 5 WHERE id_caso = ?";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            st.setString(1, casos.getTitulo_caso());
+            st.setString(2, casos.getDescripcion_caso());
+            st.setString(3, casos.getArchivo_pdf());
+            st.setInt(4, casos.getId_caso());
+
+            filasAfectadas = st.executeUpdate();
+            this.desconectar();
+            return filasAfectadas;
+        }catch (SQLException ex) {
+            //Logger.getLogger(LibrosModel.class.getName()).log(Level.SEVERE, null, ex);
+            this.desconectar();
+            return 0;
+        }
+    }
 }

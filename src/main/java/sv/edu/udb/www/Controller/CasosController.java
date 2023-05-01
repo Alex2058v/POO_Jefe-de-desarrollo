@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import sv.edu.udb.www.Beans.CasosBeans;
 import sv.edu.udb.www.Models.CasosModel;
 
 @WebServlet(name = "CasosController", urlPatterns = {"/CasosController.do"})
@@ -28,6 +29,12 @@ public class CasosController extends HttpServlet{
             switch (operacion){
                 case "mostarCasos":
                     mostarCasos(request, response);
+                    break;
+                case "obtenerCaso":
+                    obtenerCaso(request, response);
+                    break;
+                case "aprobarCaso":
+                    aprobarCaso(request, response);
                     break;
             }
         }
@@ -48,6 +55,42 @@ public class CasosController extends HttpServlet{
         }
     }
 
+    private void obtenerCaso(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            int codigo = Integer.parseInt(request.getParameter("id"));
+            CasosBeans casosBean = casos.obtenerCaso(codigo);
+            if(casosBean != null){
+                request.setAttribute("casos", casosBean);
+                request.getRequestDispatcher("/jefeDesarrollo/aprobarCaso.jsp").forward(request, response);
+            }else{
+                response.sendRedirect(request.getContextPath() + "/error404.jsp");
+            }
+        }catch (SQLException | ServletException | IOException ex) {
+            //
+            response.sendRedirect(request.getContextPath() + "/error404.jsp");
+        }
+    }
+    private void aprobarCaso(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            CasosBeans caso = new CasosBeans();
+            caso.setId_caso(Integer.parseInt(request.getParameter("idCaso")));
+            caso.setTitulo_caso(request.getParameter("idTitulo"));
+            caso.setDescripcion_caso(request.getParameter("idDescipcion"));
+            caso.setArchivo_pdf(request.getParameter("archivoPDF"));
+
+            if (casos.aprobarCaso(caso) > 0){
+                request.getSession().setAttribute("éxito", "El caso se ha aprobado con éxito.");
+                response.sendRedirect(request.getContextPath() +"/CasosController.do?op=mostarCasos");
+            }else {
+                request.getSession().setAttribute("fracaso", "El caso no se pudo aprobar");
+                response.sendRedirect(request.getContextPath() + "/CasosController.do?op=mostarCasos");
+            }
+        }catch (IOException ex) {
+            //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

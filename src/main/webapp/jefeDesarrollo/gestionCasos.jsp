@@ -41,7 +41,8 @@
                     <td>${casos.archivo_pdf}</td>
                     <td>${casos.id_departamento}</td>
                     <td>
-                        <a title="aprobar" class="btn btn-info">
+                        <a title="aprobar" class="btn btn-info"
+                                href="${contextPath}/CasosController.do?op=obtenerCaso&id=${casos.id_caso}">
                             <span class="glyphicon glyphicon-apple"></span>
                         </a>
                         <a title="rechazar" class="btn btn-danger">
@@ -53,5 +54,6 @@
             </tbody>
         </table>
     </div>
+
 </body>
 </html>
