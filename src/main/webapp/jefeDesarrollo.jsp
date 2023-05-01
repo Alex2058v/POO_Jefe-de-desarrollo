@@ -6,7 +6,7 @@
     <jsp:include page="/cabecera.jsp"/>
 </head>
 <body>
-<jsp:include page="menuJefeDesarollo.jsp"/>
+<jsp:include page="jefeDesarrollo/menuJefeDesarollo.jsp"/>
     <div class="container">
         <div class="row">
             <h2>Jefe de desarrollo.</h2>
