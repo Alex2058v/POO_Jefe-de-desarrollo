@@ -24,7 +24,7 @@ public class CasosBeans {
         this.id_caso = 0;
         this.descripcion_caso = "";
         //los que tiene int y string serviran para que los que son int solo guardarlos directamente en la bdd
-        //string serviran para guardar las consultas para mostrar :v
+        //string serviran para guardar las consultas para mostrar :v.
         this.idEstado = 0;
         this.id_estado = "";
         this.id_programados = "";
