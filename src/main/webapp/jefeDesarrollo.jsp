@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="${pageContext.request.contextPath}/#">
+                <a href="${pageContext.request.contextPath}/CasosController.do?op=mostarCasos">
                     <div class="panel-footer">
                         <span class="pull-left">Ver Casos</span>
                         <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
