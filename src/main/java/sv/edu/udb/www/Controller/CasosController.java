@@ -36,6 +36,9 @@ public class CasosController extends HttpServlet{
                 case "aprobarCaso":
                     aprobarCaso(request, response);
                     break;
+                case "rechazarCaso":
+                    rechazarCaso(request, response);
+                    break;
             }
         }
     }
@@ -58,10 +61,23 @@ public class CasosController extends HttpServlet{
     private void obtenerCaso(HttpServletRequest request, HttpServletResponse response) throws IOException{
         try {
             int codigo = Integer.parseInt(request.getParameter("id"));
+            int cod = Integer.parseInt(request.getParameter("c"));
             CasosBeans casosBean = casos.obtenerCaso(codigo);
-            if(casosBean != null){
-                request.setAttribute("casos", casosBean);
-                request.getRequestDispatcher("/jefeDesarrollo/aprobarCaso.jsp").forward(request, response);
+            if(cod == 1){
+                if(casosBean != null){
+                    request.setAttribute("casos", casosBean);
+                    request.getRequestDispatcher("/jefeDesarrollo/aprobarCaso.jsp").forward(request, response);
+                }else{
+                    response.sendRedirect(request.getContextPath() + "/error404.jsp");
+                }
+            }
+            else if(cod == 2){
+                if(casosBean != null){
+                    request.setAttribute("casos", casosBean);
+                    request.getRequestDispatcher("/jefeDesarrollo/rechazarCaso.jsp").forward(request, response);
+                }else{
+                    response.sendRedirect(request.getContextPath() + "/error404.jsp");
+                }
             }else{
                 response.sendRedirect(request.getContextPath() + "/error404.jsp");
             }
@@ -83,6 +99,27 @@ public class CasosController extends HttpServlet{
                 response.sendRedirect(request.getContextPath() +"/CasosController.do?op=mostarCasos");
             }else {
                 request.getSession().setAttribute("fracaso", "El caso no se pudo aprobar");
+                response.sendRedirect(request.getContextPath() + "/CasosController.do?op=mostarCasos");
+            }
+        }catch (IOException ex) {
+            //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            //Logger.getLogger(LibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void rechazarCaso(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try {
+            CasosBeans caso = new CasosBeans();
+            caso.setId_caso(Integer.parseInt(request.getParameter("idCaso")));
+            caso.setDescripcion_caso(request.getParameter("idDescipcion"));
+            caso.setArchivo_pdf(request.getParameter("archivoPDF"));
+            caso.setArgumento(request.getParameter("argumento"));
+            if (casos.rechazarCaso(caso) > 0){
+                request.getSession().setAttribute("éxito", "El caso se ha rechazado con éxito.");
+                response.sendRedirect(request.getContextPath() +"/CasosController.do?op=mostarCasos");
+            }else {
+                request.getSession().setAttribute("fracaso", "El caso no se pudo rechazar");
                 response.sendRedirect(request.getContextPath() + "/CasosController.do?op=mostarCasos");
             }
         }catch (IOException ex) {

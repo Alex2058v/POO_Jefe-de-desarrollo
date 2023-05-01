@@ -79,4 +79,24 @@ public class CasosModel extends Conexion{
             return 0;
         }
     }
+
+    public int rechazarCaso(CasosBeans casos) throws SQLException{
+        try {
+            int filasAfectadas = 0;
+            String sql = "UPDATE casos set argumento = ?, descripcion_caso = ?, archivo_pdf = ?, id_estado = 4 WHERE id_caso = ?";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            st.setString(1, casos.getArgumento());
+            st.setString(2, casos.getDescripcion_caso());
+            st.setString(3, casos.getArchivo_pdf());
+            st.setInt(4, casos.getId_caso());
+            filasAfectadas = st.executeUpdate();
+            this.desconectar();
+            return filasAfectadas;
+        }catch (SQLException ex) {
+            //Logger.getLogger(LibrosModel.class.getName()).log(Level.SEVERE, null, ex);
+            this.desconectar();
+            return 0;
+        }
+    }
 }
