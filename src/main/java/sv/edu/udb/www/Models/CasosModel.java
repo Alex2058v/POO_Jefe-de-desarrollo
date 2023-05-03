@@ -2,8 +2,7 @@ package sv.edu.udb.www.Models;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import sv.edu.udb.www.Beans.CasosBeans;
 
 public class CasosModel extends Conexion{
@@ -127,5 +126,47 @@ public class CasosModel extends Conexion{
             this.desconectar();
             return  null;
         }
+    }
+
+    public CasosBeans casoObtener(int id) throws SQLException{
+        try {
+            String sql = "SELECT id_caso, titulo_caso FROM casos WHERE id_caso = ?";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            if(rs.next()) {
+                CasosBeans casos = new CasosBeans();
+                casos.setId_caso(Integer.parseInt(rs.getString("id_caso")));
+                casos.setTitulo_caso(rs.getString("titulo_caso"));
+                this.desconectar();
+                return casos;
+            }
+            this.desconectar();
+            return null;
+        }catch (SQLException ex) {
+            this.desconectar();
+            return null;
+        }
+    }
+
+    public int casoAsignado(CasosBeans casos) throws SQLException{
+        try {
+            int filasAfectadas = 0;
+            String sql = "UPDATE casos SET id_programador = ?, fecha_solicitud = ?, fecha_limite = ?, id_estado = 6 WHERE id_caso = ?";
+            this.conectar();
+            st = conexion.prepareStatement(sql);
+            st.setInt(1, casos.getIdProgramador());
+            st.setString(2, casos.getFecha_solicitud());
+            st.setString(3, casos.getFecha_limite());
+            st.setInt(4, casos.getId_caso());
+            filasAfectadas = st.executeUpdate();
+            this.desconectar();
+            return filasAfectadas;
+        }catch (SQLException ex) {
+            this.desconectar();
+            return 0;
+        }
+
     }
 }

@@ -5,11 +5,14 @@ import java.util.logging.Logger;
 
 public class Conexion {
     protected static Connection conexion = null;
+
     protected PreparedStatement st;
+    protected PreparedStatement st2;
     //protected CallableStatement cs;
     protected ResultSet rs;
 
     public Conexion(){
+        this.st2 = null;
         this.st = null;
         this.rs = null;
     }

@@ -22,14 +22,14 @@
 
     <table class="table table-striped table-bordered table-hover" id="tabla" style="margin-top: 3rem">
         <thead>
-        <tr>
-            <th>ID del caso</th>
-            <th>Titulo del caso</th>
-            <th>Descripción</th>
-            <th>Archivo pdf</th>
-            <th>Departamento</th>
-            <th>Operaciones</th>
-        </tr>
+            <tr>
+                <th>ID del caso</th>
+                <th>Titulo del caso</th>
+                <th>Descripción</th>
+                <th>Archivo pdf</th>
+                <th>Departamento</th>
+                <th>Operaciones</th>
+            </tr>
         </thead>
         <tbody>
             <c:forEach items="${requestScope.casosProgramadores}" var="casos">
@@ -41,7 +41,10 @@
                     <td>${casos.id_departamento}</td>
 
                     <td>
-
+                        <a title="aprobar" class="btn btn-info"
+                            href="${contextPath}/CasosController.do?op=casoObtener&id=${casos.id_caso}">
+                            <span class="glyphicon glyphicon-apple"></span>
+                        </a>
                     </td>
                 </tr>
             </c:forEach>

@@ -5,7 +5,7 @@ public class CasosBeans {
     private String descripcion_caso;
     private int idEstado;
     private String id_estado;
-    private String id_programados;
+    private String id_programador;
     private int idProgramador;
 
     private int idProbador;
@@ -27,7 +27,7 @@ public class CasosBeans {
         //string serviran para guardar las consultas para mostrar :v.
         this.idEstado = 0;
         this.id_estado = "";
-        this.id_programados = "";
+        this.id_programador = "";
         this.idProbador = 0;
         this.id_probador = "";
         this.archivo_pdf = "";
@@ -73,11 +73,11 @@ public class CasosBeans {
     }
 
     public String getId_programados() {
-        return id_programados;
+        return id_programador;
     }
 
     public void setId_programados(String id_programados) {
-        this.id_programados = id_programados;
+        this.id_programador = id_programados;
     }
 
     public int getIdProgramador() {
